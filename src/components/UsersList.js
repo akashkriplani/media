@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers } from '../store';
+import { fetchUsers, addUser } from '../store';
+import Button from './Button';
 import Skeleton from './Skeleton';
 
 function UsersList() {
@@ -20,6 +21,10 @@ function UsersList() {
     return <div>Error fetching data...</div>;
   }
 
+  const handleUserAdd = () => {
+    dispatch(addUser());
+  };
+
   const renderedUsers = data.map((user) => {
     return (
       <div key={user.id} className="mb-2 border rounded">
@@ -28,7 +33,15 @@ function UsersList() {
     );
   });
 
-  return <div>{renderedUsers}</div>;
+  return (
+    <div>
+      <div className="flex flex-row justify-between m-3">
+        <h1 className="m-2 text-xl">Users</h1>
+        <Button onClick={handleUserAdd}>+ Add User</Button>
+      </div>
+      {renderedUsers}
+    </div>
+  );
 }
 
 export default UsersList;
