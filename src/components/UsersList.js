@@ -7,7 +7,8 @@ import Skeleton from './Skeleton';
 function UsersList() {
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [loadingUsersError, setLoadingUsersError] = useState(null);
-
+  const [isCreatingUser, setIsCreatingUser] = useState(false);
+  const [creatingUserError, setCreatingUserError] = useState(null);
   const dispatch = useDispatch();
 
   const { data } = useSelector((state) => state.users);
@@ -33,7 +34,15 @@ function UsersList() {
   }
 
   const handleUserAdd = () => {
-    dispatch(addUser());
+    // dispatch returns a promise which does not work like a JS promise
+    // It goes to the then() block on both success and failure
+    // To achieve what a classic promise does we use unwrap() to convert it to
+    // a classic JS promise
+    setIsCreatingUser(true);
+    dispatch(addUser())
+      .unwrap()
+      .catch((err) => setCreatingUserError(err))
+      .finally(() => setIsCreatingUser(false));
   };
 
   const renderedUsers = data.map((user) => {
@@ -48,7 +57,8 @@ function UsersList() {
     <div>
       <div className="flex flex-row justify-between m-3">
         <h1 className="m-2 text-xl">Users</h1>
-        <Button onClick={handleUserAdd}>+ Add User</Button>
+        {isCreatingUser ? 'Creating User...' : <Button onClick={handleUserAdd}>+ Add User</Button>}
+        {creatingUserError && 'Error creating user...'}
       </div>
       {renderedUsers}
     </div>
