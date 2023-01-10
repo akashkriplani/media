@@ -15,11 +15,6 @@
   ],
   "albums": [
     {
-      "id": 10,
-      "title": "Hiking Trip",
-      "userId": 1
-    },
-    {
       "userId": 1,
       "title": "Ergonomic Cotton Soap",
       "id": 11
