@@ -1,11 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { faker } from '@faker-js/faker';
+import { pause } from '../../utils/helper';
 
 const usersApi = createApi({
   reducerPath: 'users',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3005',
     fetchFn: async (...args) => {
+      // REMOVE FROM PRODUCTION
+      await pause(2000);
       return fetch(...args);
     }
   }),

@@ -1,12 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-// DEV ONLY!!!
-const pause = (duration) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, duration);
-  });
-};
+import { pause } from '../../utils/helper';
 
 const albumsApi = createApi({
   reducerPath: 'albums',
