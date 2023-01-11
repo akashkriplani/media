@@ -14,7 +14,7 @@ function UsersList() {
   } else if (error) {
     content = <div>Error fetching users.</div>;
   } else if (data.length === 0) {
-    content = <div>No users found.</div>;
+    content = <div className="text-center">No users found.</div>;
   } else {
     content = data.map((user) => {
       return <UsersListItem key={user.id} user={user} />;

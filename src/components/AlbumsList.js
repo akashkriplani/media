@@ -18,6 +18,8 @@ function AlbumsList({ user }) {
     content = <Skeleton times={3} className="h-10 w-full" />;
   } else if (error) {
     content = <div>Error fetching albums.</div>;
+  } else if (data.length === 0) {
+    content = <div className="text-center">No albums found.</div>;
   } else {
     content = data.map((album) => {
       return <AlbumsListItem key={album.id} album={album} />;
