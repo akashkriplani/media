@@ -2,7 +2,6 @@ import Button from './Button';
 import Skeleton from './Skeleton';
 import UsersListItem from './UsersListItem';
 import { useFetchUsersQuery, useAddUserMutation } from '../store';
-import { v4 } from 'uuid';
 
 function UsersList() {
   const { data, error, isFetching } = useFetchUsersQuery();
@@ -13,7 +12,9 @@ function UsersList() {
   if (isFetching) {
     content = <Skeleton times={6} className="h-10 w-full" />;
   } else if (error) {
-    content = <div>Error fetching users...</div>;
+    content = <div>Error fetching users.</div>;
+  } else if (data.length === 0) {
+    content = <div>No users found.</div>;
   } else {
     content = data.map((user) => {
       return <UsersListItem key={user.id} user={user} />;
@@ -21,7 +22,7 @@ function UsersList() {
   }
 
   const handleUserAdd = () => {
-    addUser(v4());
+    addUser();
   };
 
   return (
