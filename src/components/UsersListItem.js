@@ -1,24 +1,22 @@
 import { GoTrashcan } from 'react-icons/go';
-import { useThunk } from '../hooks/use-thunk';
-import { removeUser } from '../store';
 import Button from './Button';
 import ExpandablePanel from './ExpandablePanel';
 import { Fragment } from 'react';
 import AlbumsList from './AlbumsList';
+import { useRemoveUserMutation } from '../store';
 
 function UsersListItem({ user }) {
-  const [doRemoveUser, isLoading, error] = useThunk(removeUser);
+  const [removeUser, results] = useRemoveUserMutation();
 
   const handleClick = () => {
-    doRemoveUser(user);
+    removeUser(user);
   };
 
   const header = (
     <Fragment>
-      <Button className="mr-3" loading={isLoading} onClick={handleClick}>
+      <Button className="mr-3" loading={results.isLoading} onClick={handleClick}>
         <GoTrashcan />
       </Button>
-      {error && <div>Error deleting user.</div>}
       {user.name}
     </Fragment>
   );
