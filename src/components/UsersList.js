@@ -12,7 +12,7 @@ function UsersList() {
   if (isFetching) {
     content = <Skeleton times={6} className="h-10 w-full" />;
   } else if (error) {
-    content = <div>Error fetching users.</div>;
+    content = <div className="text-center">Error fetching users.</div>;
   } else if (data.length === 0) {
     content = <div className="text-center">No users found.</div>;
   } else {
